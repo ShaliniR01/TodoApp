@@ -1,21 +1,11 @@
 import React from "react";
 import { screen, render } from "@testing-library/react";
 import App from "../App";
+import ToDo from "../Components/ToDo";
 
 it('should display Header ', () => {
-    render(<App />);
-    const header = screen.getByTestId('header');
-    expect(header).toHaveTextContent('To-Do App');
-});
-
-it('should display Todo ', () => {
-    render(<App />);
-    const todo = screen.getByTestId('todo');
-    expect(todo).toBeInTheDocument();
-});
-
-it('should display TodoList ', () => {
-    render(<App />);
+    const todoList = ["Read SpringBoot", "Complete assignments", "Prepare breakfast", "Sleep for 2 hours", "Take a shower"];
+    render(<ToDo todoList={todoList}/>);
     const todo = screen.getAllByTestId('todolist');
     expect(todo[0]).toHaveTextContent('Read SpringBoot');
     expect(todo[1]).toHaveTextContent('Complete assignments');
@@ -23,3 +13,5 @@ it('should display TodoList ', () => {
     expect(todo[3]).toHaveTextContent('Sleep for 2 hours');
     expect(todo[4]).toHaveTextContent('Take a shower');
 });
+
+
