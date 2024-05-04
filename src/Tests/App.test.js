@@ -24,10 +24,24 @@ it('should display TodoList ', () => {
     expect(todo[4]).toHaveTextContent('Take a shower');
 });
 
-it('should display TodoList ', () => {
+it('should display correct number of TodoList ', () => {
     render(<App />);
-    const emptyButton = screen.getByTestId('empty');
-    fireEvent.click(emptyButton);
-    const todo = screen.getByTestId('todo');
-    expect(todo).toHaveTextContent(['“Nothing to do buddy. Sleep!!”']);
+    const done = screen.getAllByTestId('done');
+    const remove = screen.getByTestId('remove');
+    fireEvent.click(done[0]);
+    fireEvent.click(remove);
+    const todo = screen.getAllByTestId('todolist');
+    expect(todo.length).toBe(4);
+});
+
+it('should display correct TodoList ', () => {
+    render(<App />);
+    const done = screen.getAllByTestId('done');
+    const remove = screen.getByTestId('remove');
+    fireEvent.click(done[1]);
+    fireEvent.click(remove);
+    const todo = screen.getAllByTestId('todolist');
+    expect(todo.length).toBe(4);
+    expect(todo[0]).toHaveTextContent('Read SpringBoot');
+    expect(todo[1]).toHaveTextContent('Prepare breakfast');
 });
