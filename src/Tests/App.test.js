@@ -45,3 +45,17 @@ it('should display correct TodoList ', () => {
     expect(todo[0]).toHaveTextContent('Read SpringBoot');
     expect(todo[1]).toHaveTextContent('Prepare breakfast');
 });
+
+it('should not display todolist after marking all as completed and removing it ', () => {
+    render(<App />);
+    const done = screen.getAllByTestId('done');
+    const remove = screen.getByTestId('remove');
+    fireEvent.click(done[0]);
+    fireEvent.click(done[1]);
+    fireEvent.click(done[2]);
+    fireEvent.click(done[3]);
+    fireEvent.click(done[4]);
+    fireEvent.click(remove);
+    const todo = screen.getByTestId('todo');
+    expect(todo).toHaveTextContent('“Nothing to do buddy. Sleep!!”');
+});
