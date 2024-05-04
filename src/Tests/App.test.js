@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import App from "../App";
 
 it('should display Header ', () => {
@@ -22,4 +22,12 @@ it('should display TodoList ', () => {
     expect(todo[2]).toHaveTextContent('Prepare breakfast');
     expect(todo[3]).toHaveTextContent('Sleep for 2 hours');
     expect(todo[4]).toHaveTextContent('Take a shower');
+});
+
+it('should display TodoList ', () => {
+    render(<App />);
+    const emptyButton = screen.getByTestId('empty');
+    fireEvent.click(emptyButton);
+    const todo = screen.getByTestId('todo');
+    expect(todo).toHaveTextContent(['“Nothing to do buddy. Sleep!!”']);
 });

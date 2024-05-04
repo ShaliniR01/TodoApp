@@ -1,5 +1,5 @@
 export default function NoToDo() {
     return (
-        <p data-testid='notodo'>“Nothing to do buddy. Sleep!!”</p>
+        <p data-testid='notodo' className="notodo">“Nothing to do buddy. Sleep!!”</p>
     );
 }
