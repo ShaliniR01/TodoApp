@@ -18,13 +18,8 @@ export default function App() {
 
   const [newTodo, setNewTodo] = useState('');
 
-  function completedTodo(id){
-    const updatedTodoList = todoList.map(todo => {
-      if(todo.id===id)
-        todo.isDone = !todo.isDone;
-         return todo;
-      })
-      setTodoList(updatedTodoList);
+  function handleChange(task){
+    setNewTodo(task);
   }
 
   function addTodoTask(){
@@ -32,12 +27,27 @@ export default function App() {
       window.alert('Enter your task. The task field is empty !!!');
       return null;
     }
+    for(let index=0;index<todoList.length;index++){
+      if(newTodo.toLowerCase()===todoList[index].task.toLowerCase()){
+        window.alert('Task already exist !!!');
+        return null;
+      }
+    }
     const todo = {};
     todo.id = uuidv4();
     todo.task = newTodo;
     todo.isDone = false;
     setTodoList([...todoList, todo]);
     setNewTodo('');
+  }
+
+  function completedTodo(id){
+    const updatedTodoList = todoList.map(todo => {
+      if(todo.id===id)
+        todo.isDone = !todo.isDone;
+        return todo;
+    })
+    setTodoList(updatedTodoList);
   }
 
   function removeCompletedTodo(){
@@ -58,10 +68,6 @@ export default function App() {
     const updatedTodoList = [...todoList];
     updatedTodoList.splice(indexOfDeletedTodo, 1);
     setTodoList(updatedTodoList);
-  }
-
-  function handleChange(task){
-      setNewTodo(task);
   }
 
   return (

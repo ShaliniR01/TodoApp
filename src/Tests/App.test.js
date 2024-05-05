@@ -117,7 +117,7 @@ describe('Testing delete task functionality',()=>{
 })
 
 describe('Testing add task functionality',()=>{
-    it('should not add tasks to todolist when the fiels is empty ', () => {
+    it('should not add tasks to todolist when the field is empty ', () => {
         render(<App />);
         const addTaskButton = screen.getByTestId('addtask-button');
         fireEvent.click(addTaskButton);
@@ -154,5 +154,16 @@ describe('Testing add task functionality',()=>{
         const todo = screen.getAllByTestId('todolist');
         expect(todo.length).toBe(6);
         expect(todo[5]).toHaveTextContent('Read React');
+    });
+
+    it('should not add tasks when the task is already in the todolist ', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText('Enter Your Task');
+        const value = 'Read SpringBoot';
+        fireEvent.change(input, { target: { value } });
+        const addTaskButton = screen.getByTestId('addtask-button');
+        fireEvent.click(addTaskButton);
+        const todo = screen.getAllByTestId('todolist');
+        expect(todo.length).toBe(5);
     });
 })
