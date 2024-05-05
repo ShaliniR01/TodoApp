@@ -1,3 +1,6 @@
+import CompletedTodo from "./CompletedTodo";
+import DeleteTodo from "./DeleteTodo";
+
 export default function ToDo({todoList, completedTodo, removeTodoTask}){
     return (
         <div>
@@ -10,8 +13,8 @@ export default function ToDo({todoList, completedTodo, removeTodoTask}){
                                     {todos.isDone ? <s>{todos.task}</s> : <b>{todos.task}</b>}
                                 </div>
                                 <div className='buttons-container'>
-                                    <button data-testid="donetask-button" className="done-button" onClick={() => completedTodo(todos.id)}><i className="fa fa-check"></i></button>
-                                    <button data-testid="deletetask-button" className="delete-button" onClick={() => removeTodoTask(todos.id)}><i className="fa fa-trash"></i></button>
+                                    <CompletedTodo completedTodo={completedTodo} todos={todos} />
+                                    <DeleteTodo removeTodoTask={removeTodoTask} todos={todos} />
                                 </div>
                             </div>
                         </li>

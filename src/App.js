@@ -6,6 +6,7 @@ import ToDo from "./Components/ToDo";
 import "./styles.css";
 import AddTodo from "./Components/AddTodo";
 import { v4 as uuidv4 } from 'uuid';
+import RemoveCompletedTodo from "./Components/RemoveCompletedTask";
 
 export default function App() {
 
@@ -15,7 +16,7 @@ export default function App() {
                                             {id: 4, task: "Sleep for 2 hours", isDone: false},
                                             {id: 5, task: "Take a shower", isDone: false}]);
 
-  const [addNewTodo, setAddNewTodo] = useState('');
+  const [newTodo, setNewTodo] = useState('');
 
   function completedTodo(id){
     const updatedTodoList = todoList.map(todo => {
@@ -26,24 +27,24 @@ export default function App() {
       setTodoList(updatedTodoList);
   }
 
-  function removeCompletedTodo(){
-      const updatedTodoList = todoList.filter(todo => !todo.isDone)
-      if(updatedTodoList.length===todoList.length)
-        window.alert('No tasks are completed !!!');
-      setTodoList(updatedTodoList);
-  }
-
   function addTodoTask(){
-    if(addNewTodo===''){
+    if(newTodo===''){
       window.alert('Enter your task. The task field is empty !!!');
       return null;
     }
-    const newTodo = {};
-    newTodo.id = uuidv4();
-    newTodo.task = addNewTodo;
-    newTodo.isDone = false;
-    setTodoList([...todoList, newTodo]);
-    setAddNewTodo('');
+    const todo = {};
+    todo.id = uuidv4();
+    todo.task = newTodo;
+    todo.isDone = false;
+    setTodoList([...todoList, todo]);
+    setNewTodo('');
+  }
+
+  function removeCompletedTodo(){
+    const updatedTodoList = todoList.filter(todo => !todo.isDone)
+    if(updatedTodoList.length===todoList.length)
+      window.alert('No tasks are completed !!!');
+    setTodoList(updatedTodoList);
   }
 
   function removeTodoTask(id){
@@ -60,15 +61,15 @@ export default function App() {
   }
 
   function handleChange(task){
-      setAddNewTodo(task);
+      setNewTodo(task);
   }
 
   return (
     <div className="Application">
       <Header/><hr/>
-      <AddTodo value={addNewTodo} handleChange={handleChange} addTask={addTodoTask} />
+      <AddTodo newTodo={newTodo} handleChange={handleChange} addTodoTask={addTodoTask} />
       <div data-testid='todo'>{todoList.length > 0 ? <ToDo todoList={todoList} completedTodo={completedTodo} removeTodoTask={removeTodoTask}/> : <NoToDo/>}</div>
-      {todoList.length > 0 ? <button data-testid='remove-completed' className="remove-completed" onClick={removeCompletedTodo}> Remove Completed </button> : null}
+      <RemoveCompletedTodo todoList={todoList} removeCompletedTodo={removeCompletedTodo} />
     </div>
   );
 

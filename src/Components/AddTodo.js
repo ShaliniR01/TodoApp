@@ -1,8 +1,8 @@
-export default function AddTodo({value, handleChange, addTask}) {
+export default function AddTodo({newTodo, handleChange, addTodoTask}) {
     return (
         <div>
-            <input type="text" name= '' placeholder="Enter Your Task" value={value} onChange={(e) => handleChange(e.target.value)} />&nbsp;&nbsp;&nbsp;
-            <button className='add-task' data-testid='addtask-button' type="submit" onClick={addTask} >ADD</button>
+            <input type="text" name= '' placeholder="Enter Your Task" value={newTodo} onChange={(e) => handleChange(e.target.value)} />&nbsp;&nbsp;&nbsp;
+            <button className='add-task' data-testid='addtask-button' type="submit" onClick={addTodoTask} >ADD</button>
         </div>
     );
 }
