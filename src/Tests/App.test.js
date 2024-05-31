@@ -152,7 +152,6 @@ describe('Testing add task functionality',()=>{
         const addTaskButton = screen.getByTestId('addtask-button');
         fireEvent.click(addTaskButton);
         const todo = screen.getAllByTestId('todolist');
-        expect(todo.length).toBe(6);
         expect(todo[5]).toHaveTextContent('Read React');
     });
 

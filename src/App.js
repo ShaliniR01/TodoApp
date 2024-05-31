@@ -30,6 +30,7 @@ export default function App() {
     for(let index=0;index<todoList.length;index++){
       if(newTodo.toLowerCase()===todoList[index].task.toLowerCase()){
         window.alert('Task already exist !!!');
+        setNewTodo('');
         return null;
       }
     }
